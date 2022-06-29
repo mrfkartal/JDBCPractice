@@ -26,35 +26,55 @@ public class P3_DDL {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/batch60_61?serverTimezone=UTC", "root", "elif.12345");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/batch60_61?serverTimezone=UTC", "root", "12345");
 
         Statement st = con.createStatement();
 
         // SORU: markalar adında bir tablo oluşturunuz. marka_id int, marka_isim VARCHAR(15), calisan_sayisi int
 
-
+        String createQuery = "create table markalar(marka_id int, marka_isim VARCHAR(15), calisan_sayisi int)";
         //1.yontem : execute () methodu ile
+        boolean s1=st.execute(createQuery);
+        System.out.println("markalr tablosu olusturuldu " +s1);  //markalr tablosu olusturuldu false
 
 
         //2.yontem : executeUpdate() methodu ile
 
+            int s2=st.executeUpdate(createQuery);
+            System.out.println("markalr tablosu olusturuldu " +s2);  //markalr tablosu olusturuldu 0
 
         // SORU: markalar tablosunu siliniz
 
+          String dropQuery = "DROP table markalar";
+          st.execute(dropQuery);
+          System.out.println("markalar tabllosu silindi...");
 
         // SORU : markalar tablosuna yeni bir sutun {sube_sayisi int} ekleyiniz
 
+           String alterQuery = "ALTER table markalar ADD sube_sayisi int";  //default olarak sona ekler
+          st.executeUpdate(alterQuery);
 
         // SORU : markalar tablosuna yeni bir sutun {sube_sayisi int} ekleyiniz, ancak bu sutunun yeri marka_id den sonra olsun
 
-
+            String alterQuery2 =  "ALTER table markalar ADD sube_sayisi int AFTER marka_id";
+           st.executeUpdate(alterQuery2);
+//
         // SORU : markalar tablosunun adini  brands olarak degistiriniz
 
+           String alterQuery3 = "Alter table markalar RENAME TO brands";
+           st.execute(alterQuery3);
+           System.out.println("tablo ismi brands olarak degisti..");
 
         // SORU : markalar tablosunda marka_isim sutununu isim olarak degistiriniz
 
+          String alterQuery4 = "Alter table markalar RENAME column marka_isim to isim";
+          st.execute(alterQuery4);
+          System.out.println("sutun ismi degisti..");
 
         // SORU : markalar tablosunda marka_isim sutununun data type ini char(20) olarak degistiriniz
+
+        st.execute("alter table markalar modify marka_isim char(20)");
+        System.out.println("marka ismin data type i degisti");
 
 
 
