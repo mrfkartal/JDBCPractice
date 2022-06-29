@@ -40,11 +40,11 @@ public class P1_ReadData {
         }
         System.out.println("**************************************");
         // SORU4: Talebeler tablosunda notu 70 ile 90 arasindaki kisilerin isimlerini listeleyiniz.
-        ResultSet not7090 = st.executeQuery("select isim, yazili_notu, from talebeler where yazili_notu between '70' AND '90' ");
-        while (not7090.next()) {
-            while (not7090.next()) {
-                System.out.printf("%-16s  %-16s \n", not7090.getObject(1), not7090.getObject(2));
+        ResultSet not7090 = st.executeQuery("select isim, yazili_notu from talebeler where yazili_notu between '70' AND '90'");
 
+            while(not7090.next()) {
+                System.out.printf("%-16s  %-16s \n", not7090.getObject(1), not7090.getObject(2));
+            }
 
                 System.out.println("**************************************");
 
@@ -63,7 +63,7 @@ public class P1_ReadData {
                 }
                 }
         }
-    }
-}
+
+
 
 
